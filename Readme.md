@@ -85,6 +85,8 @@ Option B is worth **$58K more**. But a 40% chance of "only" $70K feels terrifyin
 
 > I'm not saying blindly chase every positive EV opportunity. **Variance matters.** If losing the bet means you can't pay rent, don't take it even if EV is positive. But at least *KNOW* the EV before you decide. Most people don't even calculate it. They just go with their gut and wonder why they're stuck.
 
+![Expected Value: Monte Carlo simulation showing cumulative returns converge to EV over time](charts/1_expected_value.png)
+
 ---
 
 ## 2. Base Rate Neglect — The Reason You're Wrong More Than You Think
@@ -118,6 +120,8 @@ Not 99%. **Nine percent.** The base rate (1 in 1,000) matters enormously, and pe
 
 > Whenever someone tells you about a specific success story, ask yourself: **what's the base rate?** How often does this type of thing actually work? If the answer is "rarely" — be very skeptical, no matter how convincing the story sounds.
 
+![Base Rate: How prevalence dramatically affects your true probability after a positive test](charts/2_base_rate.png)
+
 ---
 
 ## 3. Sunk Cost Fallacy — Throwing Good Money After Bad (And Not Just Money)
@@ -143,6 +147,8 @@ That's the sunk cost fallacy. And it wrecks people's lives in ways far worse tha
 Aggressively simple: when making any decision, **pretend you're starting from scratch right now**. Ignore everything you've already spent — time, money, emotion. Only look forward. Would you choose this path today, knowing what you know?
 
 If the answer is no, get out. The past is not coming back regardless.
+
+![Sunk Cost Fallacy: Past investment is irrelevant — only future value matters](charts/3_sunk_cost.png)
 
 ---
 
@@ -186,6 +192,8 @@ Each piece of evidence nudges the probability. Gradually. Proportionally. No dra
 
 **The takeaway:** hold opinions loosely. Update them constantly. The strength of your update should be proportional to the strength of the evidence. Most people either ignore evidence entirely or overcorrect wildly. Both are wrong.
 
+![Bayesian Update: Each piece of evidence nudges your belief gradually from 10% to 93%](charts/4_bayesian_update.png)
+
 ---
 
 ## 5. Survivorship Bias — You're Only Seeing the Winners
@@ -207,6 +215,8 @@ This is **survivorship bias**. You only see the winners, so you massively overes
 ### The Fix: Find the Denominator
 
 Whenever someone shows you a success story as proof that something works, **look for the denominator**. How many people tried this? What percentage succeeded? If you can't find the denominator, assume the success rate is very low. Because the world only shows you numerators.
+
+![Survivorship Bias: The invisible losers vastly outnumber the visible winners](charts/5_survivorship_bias.png)
 
 ---
 
@@ -248,11 +258,15 @@ So instead of 20%, bet **5-10%**. It's not as exciting. You won't get rich tomor
 
 > **The principle:** when you have edge, concentrate. But not too much. Leave room to be wrong.
 
+![Kelly Criterion: Full Kelly has wild variance while Quarter Kelly gives steady growth](charts/6_kelly_growth.png)
+
 ---
 
 ## How All 6 Connect (And Why Prediction Markets Are the Ultimate Training Ground)
 
 These aren't random math tricks. They're a **complete system for thinking clearly**:
+
+![The Complete Decision System: all 6 models as a sequential framework](charts/7_decision_system.png)
 
 | Model | What It Tells You |
 | --- | --- |
