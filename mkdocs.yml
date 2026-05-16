@@ -7,7 +7,9 @@ site_author: Mayk Thewessen
 
 repo_name: MaykThewessen/HiddenMathOfDecisions
 repo_url: https://github.com/MaykThewessen/HiddenMathOfDecisions
-edit_uri: edit/main/Readme.md
+# docs/index.md is a symlink to root Readme.md, so the edit pencil should
+# point at the real source file, not the symlink path.
+edit_uri_template: edit/main/Readme.md
 
 docs_dir: docs
 
@@ -79,9 +81,11 @@ markdown_extensions:
       generic: true
 
 extra_javascript:
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  # MathJax 3 runs on all evergreen browsers without a polyfill.
+  # The old recommended `polyfill.io` line was removed: that domain was
+  # hijacked in 2024 and now serves malware.
   - javascripts/mathjax-config.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 extra:
   social:
