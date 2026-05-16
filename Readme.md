@@ -10,11 +10,11 @@
 
 | File | What it does |
 | --- | --- |
-| [`decision_math.py`](decision_math.py) | All 6 models as Python functions + Monte Carlo simulations. Run `python decision_math.py --plot` to regenerate every chart. |
-| [`generate_extra_charts.py`](generate_extra_charts.py) | Sunk-cost + full-system flowchart SVGs. |
-| [`decision_math_formulas.xlsx`](decision_math_formulas.xlsx) | Same six formulas in Excel — plug in your own numbers. |
+| [`decision_math.py`](https://github.com/MaykThewessen/HiddenMathOfDecisions/blob/main/decision_math.py) | All 6 models as Python functions + Monte Carlo simulations. Run `python decision_math.py --plot` to regenerate every chart. |
+| [`generate_extra_charts.py`](https://github.com/MaykThewessen/HiddenMathOfDecisions/blob/main/generate_extra_charts.py) | Sunk-cost + full-system flowchart SVGs. |
+| [`decision_math_formulas.xlsx`](https://github.com/MaykThewessen/HiddenMathOfDecisions/blob/main/decision_math_formulas.xlsx) | Same six formulas in Excel — plug in your own numbers. |
 | [`charts/`](https://github.com/MaykThewessen/HiddenMathOfDecisions/tree/main/charts) | All seven figures as vector SVG (scales cleanly, prints well). |
-| [`mkdocs.yml`](mkdocs.yml) + [`docs/`](https://github.com/MaykThewessen/HiddenMathOfDecisions/tree/main/docs) | MkDocs Material site published to Read the Docs. |
+| [`mkdocs.yml`](https://github.com/MaykThewessen/HiddenMathOfDecisions/blob/main/mkdocs.yml) + [`docs/`](https://github.com/MaykThewessen/HiddenMathOfDecisions/tree/main/docs) | MkDocs Material site published to Read the Docs. |
 
 ```bash
 # Regenerate charts (requires numpy, matplotlib)
