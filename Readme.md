@@ -2,6 +2,27 @@
 
 *Based on [@zodchiii](https://x.com/zodchiii/status/2030267008625873324)*
 
+📖 **Read it on the web:** [mthewessen.github.io/HiddenMathOfDecisions](https://mthewessen.github.io/HiddenMathOfDecisions/) — typography-tuned, KaTeX math, dark mode, mobile-friendly.
+
+---
+
+## Run it yourself
+
+| File | What it does |
+| --- | --- |
+| [`decision_math.py`](decision_math.py) | All 6 models as Python functions + Monte Carlo simulations. Run `python decision_math.py --plot` to regenerate every chart. |
+| [`generate_extra_charts.py`](generate_extra_charts.py) | Sunk-cost + full-system flowchart SVGs. |
+| [`decision_math_formulas.xlsx`](decision_math_formulas.xlsx) | Same six formulas in Excel — plug in your own numbers. |
+| [`charts/*.svg`](charts/) | All seven figures as vector SVG (scales cleanly, prints well). |
+| [`build_site.py`](build_site.py) | Renders this Readme into the GitHub Pages site under [`docs/`](docs/). |
+
+```bash
+# Requirements: Python 3.10+, numpy, matplotlib, markdown
+python decision_math.py --plot          # text demo + regenerate charts
+python generate_extra_charts.py         # remaining 2 charts
+python build_site.py                    # rebuild docs/index.html
+```
+
 ---
 
 ## Table of Contents
@@ -85,7 +106,7 @@ Option B is worth **$58K more**. But a 40% chance of "only" $70K feels terrifyin
 
 > I'm not saying blindly chase every positive EV opportunity. **Variance matters.** If losing the bet means you can't pay rent, don't take it even if EV is positive. But at least *KNOW* the EV before you decide. Most people don't even calculate it. They just go with their gut and wonder why they're stuck.
 
-![Expected Value: Monte Carlo simulation showing cumulative returns converge to EV over time](charts/1_expected_value.png)
+![Expected Value: Monte Carlo simulation showing cumulative returns converge to EV over time](charts/1_expected_value.svg)
 
 ---
 
@@ -120,7 +141,7 @@ Not 99%. **Nine percent.** The base rate (1 in 1,000) matters enormously, and pe
 
 > Whenever someone tells you about a specific success story, ask yourself: **what's the base rate?** How often does this type of thing actually work? If the answer is "rarely" — be very skeptical, no matter how convincing the story sounds.
 
-![Base Rate: How prevalence dramatically affects your true probability after a positive test](charts/2_base_rate.png)
+![Base Rate: How prevalence dramatically affects your true probability after a positive test](charts/2_base_rate.svg)
 
 ---
 
@@ -148,7 +169,7 @@ Aggressively simple: when making any decision, **pretend you're starting from sc
 
 If the answer is no, get out. The past is not coming back regardless.
 
-![Sunk Cost Fallacy: Past investment is irrelevant — only future value matters](charts/3_sunk_cost.png)
+![Sunk Cost Fallacy: Past investment is irrelevant — only future value matters](charts/3_sunk_cost.svg)
 
 ---
 
@@ -192,7 +213,7 @@ Each piece of evidence nudges the probability. Gradually. Proportionally. No dra
 
 **The takeaway:** hold opinions loosely. Update them constantly. The strength of your update should be proportional to the strength of the evidence. Most people either ignore evidence entirely or overcorrect wildly. Both are wrong.
 
-![Bayesian Update: Each piece of evidence nudges your belief gradually from 10% to 93%](charts/4_bayesian_update.png)
+![Bayesian Update: Each piece of evidence nudges your belief gradually from 10% to 93%](charts/4_bayesian_update.svg)
 
 ---
 
@@ -216,7 +237,7 @@ This is **survivorship bias**. You only see the winners, so you massively overes
 
 Whenever someone shows you a success story as proof that something works, **look for the denominator**. How many people tried this? What percentage succeeded? If you can't find the denominator, assume the success rate is very low. Because the world only shows you numerators.
 
-![Survivorship Bias: The invisible losers vastly outnumber the visible winners](charts/5_survivorship_bias.png)
+![Survivorship Bias: The invisible losers vastly outnumber the visible winners](charts/5_survivorship_bias.svg)
 
 ---
 
@@ -258,7 +279,7 @@ So instead of 20%, bet **5-10%**. It's not as exciting. You won't get rich tomor
 
 > **The principle:** when you have edge, concentrate. But not too much. Leave room to be wrong.
 
-![Kelly Criterion: Full Kelly has wild variance while Quarter Kelly gives steady growth](charts/6_kelly_growth.png)
+![Kelly Criterion: Full Kelly has wild variance while Quarter Kelly gives steady growth](charts/6_kelly_growth.svg)
 
 ---
 
@@ -266,7 +287,7 @@ So instead of 20%, bet **5-10%**. It's not as exciting. You won't get rich tomor
 
 These aren't random math tricks. They're a **complete system for thinking clearly**:
 
-![The Complete Decision System: all 6 models as a sequential framework](charts/7_decision_system.png)
+![The Complete Decision System: all 6 models as a sequential framework](charts/7_decision_system.svg)
 
 | Model | What It Tells You |
 | --- | --- |

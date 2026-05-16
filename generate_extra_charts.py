@@ -41,7 +41,7 @@ axes[1].axvline(x=0, color=colors["gray"], linestyle="-", alpha=0.3)
 
 fig.suptitle("Sunk Cost Fallacy: Past Investment vs Future Value", fontsize=14, fontweight="bold", y=1.02)
 fig.tight_layout()
-fig.savefig(output_dir / "3_sunk_cost.png", dpi=150, bbox_inches="tight")
+fig.savefig(output_dir / "3_sunk_cost.svg", bbox_inches="tight")
 plt.close(fig)
 
 # --- Decision System Overview (flowchart-style) ---
@@ -97,9 +97,9 @@ ax.text(7, 0.75, "DECISION: Act with calculated confidence", ha="center", va="ce
 ax.annotate("", xy=(7, 1.2), xytext=(7, 2.2),
             arrowprops=dict(arrowstyle="->", color=colors["gray"], lw=2))
 
-fig.savefig(output_dir / "7_decision_system.png", dpi=150, bbox_inches="tight")
+fig.savefig(output_dir / "7_decision_system.svg", bbox_inches="tight")
 plt.close(fig)
 
 print("Extra charts saved:")
-print("  charts/3_sunk_cost.png")
-print("  charts/7_decision_system.png")
+print("  charts/3_sunk_cost.svg")
+print("  charts/7_decision_system.svg")

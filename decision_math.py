@@ -258,7 +258,7 @@ def create_plots(output_dir: Path) -> None:
     axes[1].legend(fontsize=9)
 
     fig.tight_layout()
-    fig.savefig(output_dir / "1_expected_value.png", dpi=150, bbox_inches="tight")
+    fig.savefig(output_dir / "1_expected_value.svg", bbox_inches="tight")
     plt.close(fig)
 
     # --- Figure 2: Base Rate Sweep ---
@@ -277,7 +277,7 @@ def create_plots(output_dir: Path) -> None:
     ax.set_title("How Base Rate Affects Your True Probability", fontsize=12, fontweight="bold")
     ax.legend()
     fig.tight_layout()
-    fig.savefig(output_dir / "2_base_rate.png", dpi=150, bbox_inches="tight")
+    fig.savefig(output_dir / "2_base_rate.svg", bbox_inches="tight")
     plt.close(fig)
 
     # --- Figure 3: Bayesian Update Progression ---
@@ -300,7 +300,7 @@ def create_plots(output_dir: Path) -> None:
     ax.axhline(y=50, color=colors["gray"], linestyle="--", alpha=0.4, label="50/50 threshold")
     ax.legend()
     fig.tight_layout()
-    fig.savefig(output_dir / "4_bayesian_update.png", dpi=150, bbox_inches="tight")
+    fig.savefig(output_dir / "4_bayesian_update.svg", bbox_inches="tight")
     plt.close(fig)
 
     # --- Figure 4: Survivorship Bias ---
@@ -332,7 +332,7 @@ def create_plots(output_dir: Path) -> None:
     axes[1].set_title("Actual Success Rates (Log Scale Winners)", fontsize=12, fontweight="bold")
 
     fig.tight_layout()
-    fig.savefig(output_dir / "5_survivorship_bias.png", dpi=150, bbox_inches="tight")
+    fig.savefig(output_dir / "5_survivorship_bias.svg", bbox_inches="tight")
     plt.close(fig)
 
     # --- Figure 5: Kelly Criterion Growth Curves ---
@@ -355,7 +355,7 @@ def create_plots(output_dir: Path) -> None:
     fig.suptitle("Kelly Criterion: Aggressive vs Conservative Sizing (60% edge, 1:1 payout)",
                  fontsize=13, fontweight="bold", y=1.02)
     fig.tight_layout()
-    fig.savefig(output_dir / "6_kelly_growth.png", dpi=150, bbox_inches="tight")
+    fig.savefig(output_dir / "6_kelly_growth.svg", bbox_inches="tight")
     plt.close(fig)
 
     print(f"  Charts saved to {output_dir}/")

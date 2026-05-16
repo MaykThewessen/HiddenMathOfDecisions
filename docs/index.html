@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Hidden Math Behind Every Decision You Make</title>
+<meta name="description" content="Six mental models — Expected Value, Base Rates, Sunk Cost, Bayes, Survivorship Bias, Kelly Criterion — for thinking clearly under uncertainty." />
+<meta property="og:title" content="The Hidden Math Behind Every Decision You Make" />
+<meta property="og:description" content="Six mental models — Expected Value, Base Rates, Sunk Cost, Bayes, Survivorship Bias, Kelly Criterion — for thinking clearly under uncertainty." />
+<meta property="og:type" content="article" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}], throwOnError:false });"></script>
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="./">Hidden Math of Decisions</a>
+    <nav>
+      <a href="https://github.com/mthewessen/HiddenMathOfDecisions" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/mthewessen/HiddenMathOfDecisions/blob/main/decision_math.py" target="_blank" rel="noopener">Python</a>
+      <a href="https://github.com/mthewessen/HiddenMathOfDecisions/blob/main/decision_math_formulas.xlsx" target="_blank" rel="noopener">Excel</a>
+      <button id="theme-toggle" type="button" aria-label="Toggle theme">🌓</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container article">
+<h1 id="the-hidden-math-behind-every-decision-you-make-and-why-most-people-get-it-wrong">The Hidden Math Behind Every Decision You Make — And Why Most People Get It Wrong</h1>
+<p><em>Based on <a href="https://x.com/zodchiii/status/2030267008625873324" target="_blank" rel="noopener">@zodchiii</a></em></p>
+<p>📖 <strong>Read it on the web:</strong> <a href="https://mthewessen.github.io/HiddenMathOfDecisions/" target="_blank" rel="noopener">mthewessen.github.io/HiddenMathOfDecisions</a> — typography-tuned, KaTeX math, dark mode, mobile-friendly.</p>
+<hr />
+<h2 id="run-it-yourself">Run it yourself</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="decision_math.py"><code>decision_math.py</code></a></td>
+<td>All 6 models as Python functions + Monte Carlo simulations. Run <code>python decision_math.py --plot</code> to regenerate every chart.</td>
+</tr>
+<tr>
+<td><a href="generate_extra_charts.py"><code>generate_extra_charts.py</code></a></td>
+<td>Sunk-cost + full-system flowchart SVGs.</td>
+</tr>
+<tr>
+<td><a href="decision_math_formulas.xlsx"><code>decision_math_formulas.xlsx</code></a></td>
+<td>Same six formulas in Excel — plug in your own numbers.</td>
+</tr>
+<tr>
+<td><a href="charts/"><code>charts/*.svg</code></a></td>
+<td>All seven figures as vector SVG (scales cleanly, prints well).</td>
+</tr>
+<tr>
+<td><a href="build_site.py"><code>build_site.py</code></a></td>
+<td>Renders this Readme into the GitHub Pages site under <a href="docs/"><code>docs/</code></a>.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-bash"># Requirements: Python 3.10+, numpy, matplotlib, markdown
+python decision_math.py --plot          # text demo + regenerate charts
+python generate_extra_charts.py         # remaining 2 charts
+python build_site.py                    # rebuild docs/index.html
+</code></pre>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#1-expected-value--the-one-formula-that-runs-everything">Expected Value</a> — Should I act?</li>
+<li><a href="#2-base-rate-neglect--the-reason-youre-wrong-more-than-you-think">Base Rate Neglect</a> — What's the real probability?</li>
+<li><a href="#3-sunk-cost-fallacy--throwing-good-money-after-bad-and-not-just-money">Sunk Cost Fallacy</a> — What should I ignore?</li>
+<li><a href="#4-bayesian-thinking--how-to-update-your-beliefs-like-a-scientist-not-a-politician">Bayesian Thinking</a> — How do I update?</li>
+<li><a href="#5-survivorship-bias--youre-only-seeing-the-winners">Survivorship Bias</a> — What am I NOT seeing?</li>
+<li><a href="#6-the-kelly-criterion--how-much-to-bet-when-you-do-have-an-edge">Kelly Criterion</a> — How much to commit?</li>
+<li><a href="#how-all-6-connect-and-why-prediction-markets-are-the-ultimate-training-ground">How They Connect</a> — The complete system</li>
+<li><a href="#quick-reference-cheat-sheet">Quick-Reference Cheat Sheet</a></li>
+<li><a href="#decision-pre-flight-checklist">Decision Pre-Flight Checklist</a></li>
+<li><a href="#reading-list-if-you-want-to-go-deeper">Reading List</a></li>
+</ol>
+<hr />
+<p>You make roughly <strong>35,000 decisions a day</strong>.</p>
+<p>What to eat. Whether to reply to that email now or later. Take the highway or side streets. Accept the job offer or negotiate. Hold the stock or sell.</p>
+<p>I spent 3 months deciding whether to move to Paris by making pro/con lists in my head at 2am. Never wrote anything down. Just vibes. Moved. Hated it within a week.</p>
+<p>And for small stuff — what to have for lunch, which Netflix show to watch — vibes are fine. Who cares.</p>
+<p>But for the decisions that actually shape your life? Career moves, investments, relationships, health? <strong>Vibes are a disaster.</strong> And I can prove it with math.</p>
+<p>This isn't a math lecture btw. No calculus. I promise. This is about <strong>6 mental models</strong> that changed how I think about literally everything — and once you see them, you can't unsee them.</p>
+<p>Fair warning: some of this will make you uncomfortable. You'll realize you've been making bad decisions for years. I know I did.</p>
+<hr />
+<h2 id="1-expected-value-the-one-formula-that-runs-everything">1. Expected Value — The One Formula That Runs Everything</h2>
+<p>Ok so this is the big one. If you learn nothing else from this article, learn this.</p>
+<p>Any decision you make has possible outcomes. Each outcome has a <strong>probability</strong> and a <strong>payoff</strong>. Multiply them together, add them up, and you get the expected value.</p>
+<p>$$EV = \sum (probability \times payoff)$$</p>
+<p>That's it. That's the formula. I started thinking about this after I endlessly rekt opportunities in crypto space over the last 5 years of my experience.</p>
+<h3 id="the-coin-flip-example">The Coin Flip Example</h3>
+<p>Your friend offers you a bet. Flip a coin. Heads, he pays you $150. Tails, you pay him $100.</p>
+<p>Most people hesitate. <em>"I could lose $100!"</em> And yeah, you could. But run the math:</p>
+<pre><code class="language-text">EV = (50% × $150) + (50% × -$100)
+   = $75 - $50
+   = +$25
+</code></pre>
+<p>Every time you take this bet, you make **$25 on average**. If someone offered you this 100 times, you'd be insane to say no. You'd make roughly $2,500.</p>
+<p>But here's the weird thing — in studies, most people reject this bet. Even when the math screams YES. Because humans feel losses about <strong>2x more</strong> than equivalent gains. Losing $100 hurts way more than winning $150 feels good. Psychologists call this <strong>loss aversion</strong>, and it screws up almost every decision you make.</p>
+<h3 id="real-world-example">Real World Example</h3>
+<p>Your boss offers you two paths:</p>
+<table>
+<thead>
+<tr>
+<th>.</th>
+<th>Option A</th>
+<th>Option B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Description</strong></td>
+<td>Stay in current role</td>
+<td>Riskier startup role</td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Guaranteed $120K/yr | 60% chance: $250K in 2yr (equity + salary)</td>
+<td></td>
+</tr>
+<tr>
+<td>.</td>
+<td>.</td>
+<td>40% chance: $70K for same period</td>
+</tr>
+</tbody>
+</table>
+<p>Most people pick A. Feels safe. Let's check:</p>
+<pre><code class="language-text">EV of A = $120K (guaranteed)
+
+EV of B = (0.60 × $250K) + (0.40 × $70K)
+        = $150K + $28K
+        = $178K
+</code></pre>
+<p>Option B is worth **$58K more**. But a 40% chance of "only" $70K feels terrifying, so people don't take it.</p>
+<blockquote>
+<p>I'm not saying blindly chase every positive EV opportunity. <strong>Variance matters.</strong> If losing the bet means you can't pay rent, don't take it even if EV is positive. But at least <em>KNOW</em> the EV before you decide. Most people don't even calculate it. They just go with their gut and wonder why they're stuck.</p>
+</blockquote>
+<p><img alt="Expected Value: Monte Carlo simulation showing cumulative returns converge to EV over time" src="charts/1_expected_value.svg" /></p>
+<hr />
+<h2 id="2-base-rate-neglect-the-reason-youre-wrong-more-than-you-think">2. Base Rate Neglect — The Reason You're Wrong More Than You Think</h2>
+<p>This one is sneaky because it feels so counterintuitive.</p>
+<p>Let's say there's a disease that affects <strong>1 in 1,000 people</strong>. You take a test that's <strong>99% accurate</strong>. It comes back positive.</p>
+<p><strong>What's the probability you actually have the disease?</strong></p>
+<p>If you said 99%... you're wrong. And you're in good company — most doctors get this wrong too.</p>
+<p>Let's think about it. Out of 1,000 people:</p>
+<ul>
+<li><strong>1</strong> actually has the disease. The test catches them (99% accurate). That's <strong>1 true positive</strong>.</li>
+<li><strong>999</strong> don't have it. But the test has a 1% false positive rate. That's <strong>~10 false positives</strong>.</li>
+</ul>
+<p>So there are <strong>11 positive results</strong> total. Only 1 is real.</p>
+<p>$$P(\text{actually sick} \mid \text{positive test}) = \frac{1}{11} \approx 9\%$$</p>
+<p>Not 99%. <strong>Nine percent.</strong> The base rate (1 in 1,000) matters enormously, and people ignore it every single time.</p>
+<h3 id="how-this-ruins-real-decisions">How This Ruins Real Decisions</h3>
+<ul>
+<li>
+<p><em>"My startup idea is great — look at how well Uber did!"</em> Base rate of startup success: ~6%. Base rate of becoming a unicorn: 0.00006%. I've been trying to do my own startups since 2017. Most of my friends had as well (whose parents were way richer). Thought I was the exception. I wasn't.</p>
+</li>
+<li>
+<p><em>"This investment returned 40% last year, I should buy more."</em> Base rate of any fund beating the market 3 years in a row: ~15%. Last year's performance tells you almost nothing about next year.</p>
+</li>
+<li>
+<p><em>"This guy on Twitter predicted the crash, he must be a genius."</em> Base rate: if 10,000 people make random predictions, ~100 will nail it perfectly. They are not geniuses. They're survivors of a large sample.</p>
+</li>
+</ul>
+<blockquote>
+<p>Whenever someone tells you about a specific success story, ask yourself: <strong>what's the base rate?</strong> How often does this type of thing actually work? If the answer is "rarely" — be very skeptical, no matter how convincing the story sounds.</p>
+</blockquote>
+<p><img alt="Base Rate: How prevalence dramatically affects your true probability after a positive test" src="charts/2_base_rate.svg" /></p>
+<hr />
+<h2 id="3-sunk-cost-fallacy-throwing-good-money-after-bad-and-not-just-money">3. Sunk Cost Fallacy — Throwing Good Money After Bad (And Not Just Money)</h2>
+<p>You bought a movie ticket for $15. Thirty minutes in, the movie is terrible.</p>
+<p>Do you leave or stay?</p>
+<p>Economically, the answer is obvious: <strong>leave</strong>. The $15 is gone either way — staying doesn't get it back. The only question is: <em>"Will the next 90 minutes be better spent watching this bad movie or doing literally anything else?"</em></p>
+<p>But almost everyone stays. <em>"I already paid for it."</em></p>
+<p>That's the sunk cost fallacy. And it wrecks people's lives in ways far worse than bad movies.</p>
+<ul>
+<li>
+<p><strong>Career</strong>: Staying in a dead-end job for 3 more years because "I already invested 5 years here." Those 5 years are gone. The only question is: what's the best use of the NEXT 3?</p>
+</li>
+<li>
+<p><strong>Investing</strong>: Holding a losing stock or any altcoin/memecoin because "already down 50%, I can't sell now." The stock doesn't know your entry price. The market doesn't care what you paid. The only question is: if you had cash right now, would you buy this stock at today's price?</p>
+</li>
+<li>
+<p><strong>Relationships</strong>: Staying in a relationship because "we've been together for 6 years." Those 6 years happened. The only question is whether the NEXT 6 will be good.</p>
+</li>
+</ul>
+<h3 id="the-fix">The Fix</h3>
+<p>Aggressively simple: when making any decision, <strong>pretend you're starting from scratch right now</strong>. Ignore everything you've already spent — time, money, emotion. Only look forward. Would you choose this path today, knowing what you know?</p>
+<p>If the answer is no, get out. The past is not coming back regardless.</p>
+<p><img alt="Sunk Cost Fallacy: Past investment is irrelevant — only future value matters" src="charts/3_sunk_cost.svg" /></p>
+<hr />
+<h2 id="4-bayesian-thinking-how-to-update-your-beliefs-like-a-scientist-not-a-politician">4. Bayesian Thinking — How to Update Your Beliefs Like a Scientist (Not a Politician)</h2>
+<p>Most people form an opinion and then defend it forever. New evidence comes in? Doesn't matter — they already decided.</p>
+<p>This is the opposite of how you should think.</p>
+<p>Bayes' theorem gives you the mathematically correct way to change your mind:</p>
+<p>$$P(\text{belief} \mid \text{new evidence}) = \frac{P(\text{evidence} \mid \text{belief}) \times P(\text{belief})}{P(\text{evidence})}$$</p>
+<p>Looks scary. It's not. Let me translate it to English:</p>
+<blockquote>
+<p><strong>Your updated belief</strong> = how well the evidence fits your theory × how likely your theory was before ÷ how common the evidence is in general.</p>
+</blockquote>
+<h3 id="example-is-your-coworker-about-to-quit">Example: Is Your Coworker About to Quit?</h3>
+<p>You think your coworker is going to quit. Before any evidence, you'd say there's a <strong>10% chance</strong> (most people don't quit in any given month). That's your <strong>prior</strong>.</p>
+<p>Then you notice she updated her LinkedIn profile. Hm.</p>
+<ul>
+<li>If she IS about to quit, probability she'd update LinkedIn: <strong>70%</strong></li>
+<li>If she's NOT about to quit, probability she'd update LinkedIn: <strong>15%</strong> (people do it randomly)</li>
+</ul>
+<pre><code class="language-text">P(quitting | LinkedIn update) = (0.70 × 0.10) / ((0.70 × 0.10) + (0.15 × 0.90))
+                               = 0.07 / (0.07 + 0.135)
+                               = 0.07 / 0.205
+                               ≈ 34%
+</code></pre>
+<p>One piece of evidence moved you from 10% to 34%. Not to 90% — that would be overreacting. Not staying at 10% — that would be ignoring evidence. <strong>34% is the mathematically rational update.</strong></p>
+<p>Now she also starts taking calls outside the office. Another update → maybe <strong>55%</strong>. She's suddenly vague about long-term projects → <strong>70%</strong>.</p>
+<p>Each piece of evidence nudges the probability. Gradually. Proportionally. No drama. No sudden flipping between "definitely yes" and "definitely no."</p>
+<blockquote>
+<p>This is how prediction markets work btw. The price of a contract IS the Bayesian posterior — constantly updating as new information flows in. That's why Polymarket predicted the Iran strikes before CNN. Thousands of people feeding tiny pieces of evidence into a price. Each one nudging it 0.5% this way or 2% that way. The aggregate is spookily accurate.</p>
+</blockquote>
+<p><strong>The takeaway:</strong> hold opinions loosely. Update them constantly. The strength of your update should be proportional to the strength of the evidence. Most people either ignore evidence entirely or overcorrect wildly. Both are wrong.</p>
+<p><img alt="Bayesian Update: Each piece of evidence nudges your belief gradually from 10% to 93%" src="charts/4_bayesian_update.svg" /></p>
+<hr />
+<h2 id="5-survivorship-bias-youre-only-seeing-the-winners">5. Survivorship Bias — You're Only Seeing the Winners</h2>
+<p>You read about a college dropout who built a billion-dollar company. Inspiring, right? Maybe college is a waste of time?</p>
+<p>Except you never hear about the <strong>10,000 other dropouts</strong> who are broke. They don't get magazine covers. They don't get podcast interviews. They just quietly struggle while one survivor gets all the attention.</p>
+<p>This is <strong>survivorship bias</strong>. You only see the winners, so you massively overestimate the probability of winning.</p>
+<h3 id="its-everywhere">It's Everywhere</h3>
+<ul>
+<li>
+<p><strong>Crypto Twitter</strong>: Everyone posting gains. Nobody posting losses. The guy who turned $500 into $50K gets 200K likes. The 500 guys who turned $500 into $0 deleted their accounts. Your feed makes it look like everyone's winning. They're not. <strong>87% of Polymarket wallets lose money.</strong> You just never see them post about it.</p>
+</li>
+<li>
+<p><strong>Restaurant advice</strong>: <em>"Just follow your passion and open a restaurant!"</em> 60% of restaurants close within the first year. 80% close within five. The ones that survive become your favorite spots. The dead ones are invisible.</p>
+</li>
+<li>
+<p><strong>Music industry</strong>: <em>"Just upload to Spotify and go viral!"</em> 90,000 tracks are uploaded to Spotify every single day. The median track gets 30 plays total. You hear about the ones that go viral because... they went viral. The other 89,990 are silence.</p>
+</li>
+</ul>
+<h3 id="the-fix-find-the-denominator">The Fix: Find the Denominator</h3>
+<p>Whenever someone shows you a success story as proof that something works, <strong>look for the denominator</strong>. How many people tried this? What percentage succeeded? If you can't find the denominator, assume the success rate is very low. Because the world only shows you numerators.</p>
+<p><img alt="Survivorship Bias: The invisible losers vastly outnumber the visible winners" src="charts/5_survivorship_bias.svg" /></p>
+<hr />
+<h2 id="6-the-kelly-criterion-how-much-to-bet-when-you-do-have-an-edge">6. The Kelly Criterion — How Much to Bet When You DO Have an Edge</h2>
+<p>Ok so let's say you've done everything above. You calculated the EV. Checked the base rate. Updated your beliefs with Bayes. Accounted for survivorship bias. And you've found a genuinely good opportunity.</p>
+<p><strong>How much should you bet?</strong></p>
+<p>Most people have two modes: too much or too little. Either they YOLO everything because they're "confident," or they put in a tiny amount because they're scared. Both are wrong — and there's a formula for exactly the right amount.</p>
+<p>$$f^* = \frac{p \times b - q}{b}$$</p>
+<p>Where:</p>
+<ul>
+<li><strong>p</strong> = probability of winning (your honest estimate)</li>
+<li><strong>q</strong> = probability of losing (= 1 - p)</li>
+<li><strong>b</strong> = how much you win per dollar risked</li>
+</ul>
+<h3 id="example">Example</h3>
+<p>You find a bet where you think you have a <strong>60% chance of winning</strong>. If you win, you double your money (b = 1).</p>
+<pre><code class="language-text">f* = (0.60 × 1 - 0.40) / 1 = 0.20
+</code></pre>
+<p>Kelly says: <strong>bet 20% of your bankroll.</strong></p>
+<p>But here's what 50 years of real-world application has taught us: <strong>full Kelly is way too aggressive for humans.</strong> The variance will destroy you emotionally long before the math pays off. Every professional gambler and trader I've studied uses <strong>quarter-Kelly to half-Kelly.</strong></p>
+<p>So instead of 20%, bet <strong>5-10%</strong>. It's not as exciting. You won't get rich tomorrow. But you also won't blow up next week.</p>
+<h3 id="this-applies-to-everything-not-just-money">This Applies to Everything (Not Just Money)</h3>
+<ul>
+<li><strong>Career</strong>: Don't quit your job to go all-in on a side project. Reduce to 4 days/week and spend 1 day on the project. That's ~quarter-Kelly.</li>
+<li><strong>Learning</strong>: Don't try to learn 5 new skills at once. Pick the one with the highest EV and go deep.</li>
+<li><strong>Relationships</strong>: Don't spread yourself thin across 20 shallow friendships. Invest deeply in 4-5 people who actually matter.</li>
+</ul>
+<blockquote>
+<p><strong>The principle:</strong> when you have edge, concentrate. But not too much. Leave room to be wrong.</p>
+</blockquote>
+<p><img alt="Kelly Criterion: Full Kelly has wild variance while Quarter Kelly gives steady growth" src="charts/6_kelly_growth.svg" /></p>
+<hr />
+<h2 id="how-all-6-connect-and-why-prediction-markets-are-the-ultimate-training-ground">How All 6 Connect (And Why Prediction Markets Are the Ultimate Training Ground)</h2>
+<p>These aren't random math tricks. They're a <strong>complete system for thinking clearly</strong>:</p>
+<p><img alt="The Complete Decision System: all 6 models as a sequential framework" src="charts/7_decision_system.svg" /></p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>What It Tells You</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Expected Value</strong></td>
+<td>Whether to act</td>
+</tr>
+<tr>
+<td><strong>Base Rates</strong></td>
+<td>Ground your estimates in reality</td>
+</tr>
+<tr>
+<td><strong>Sunk Costs</strong></td>
+<td>What to ignore</td>
+</tr>
+<tr>
+<td><strong>Bayes</strong></td>
+<td>How to update</td>
+</tr>
+<tr>
+<td><strong>Survivorship Bias</strong></td>
+<td>What's missing from the picture</td>
+</tr>
+<tr>
+<td><strong>Kelly Criterion</strong></td>
+<td>How much to commit</td>
+</tr>
+</tbody>
+</table>
+<p>Prediction markets like Polymarket are weirdly the best training ground for all 6. Every contract forces you to assign a probability. The market price shows you the crowd's probability. If you disagree — and you have a reason to — you trade. Your P&amp;L tells you whether your thinking was right.</p>
+<p>It's like a gym for your decision-making. Except instead of reps, you're placing bets. And instead of soreness, you get a wallet balance that doesn't lie.</p>
+<p>The top 1.2% of Polymarket traders I analyzed? They all think this way. Not because they read the same books — because the market beat it into them. Make a bad probability estimate, lose money, learn. Repeat 500 times. That's the curriculum.</p>
+<hr />
+<h2 id="the-uncomfortable-part">The Uncomfortable Part</h2>
+<p>Here's what bugged me the most when I first learned this stuff.</p>
+<p>I realized I had been making the <strong>WRONG decision</strong> on basically everything important in my life:</p>
+<ul>
+<li>Stayed in a job way too long <em>(sunk cost)</em></li>
+<li>Didn't negotiate my salary because "they might say no" <em>(loss aversion + wrong EV calculation)</em></li>
+<li>Followed crypto influencers because they had one big win <em>(survivorship bias)</em></li>
+<li>Changed my mind too fast on some things, too slow on others <em>(bad Bayesian updating)</em></li>
+<li>Spread myself across too many projects <em>(anti-Kelly)</em></li>
+</ul>
+<p>And the worst part? I thought I was being rational the whole time. I had "reasons" for every decision. They just happened to be the wrong reasons that my brain invented to justify what my gut already decided.</p>
+<p><strong>That's the trap.</strong> You don't feel irrational when you're being irrational. You feel certain. The certainty IS the bug.</p>
+<p>The 6 models above don't make you perfect. Nothing does. But they give you a structured way to check your own thinking. Like a pilot going through a pre-flight checklist — not because they don't know how to fly, but because even experts miss things when they rely purely on instinct.</p>
+<p><strong>Start using them. Start with one.</strong> Next time you face a real decision — career, money, relationship, whatever — pause for 5 minutes and run through the EV calculation. Just that one thing.</p>
+<p>You'll be shocked how different the answer is from what your gut tells you.</p>
+<hr />
+<h2 id="reading-list-if-you-want-to-go-deeper">Reading List (If You Want to Go Deeper)</h2>
+<p><em>In order of how much they changed my thinking:</em></p>
+<ol>
+<li><strong>Thinking, Fast and Slow</strong> — Daniel Kahneman. The Bible. Covers almost everything in this article and 200 more biases you didn't know you had.</li>
+<li><strong>Superforecasting</strong> — Philip Tetlock. How the world's best predictors think. Directly applicable to prediction markets.</li>
+<li><strong>The Signal and the Noise</strong> — Nate Silver. How to find real patterns and ignore fake ones.</li>
+<li><strong>Fooled by Randomness</strong> — Nassim Taleb. Why most "skill" is luck in disguise.</li>
+<li><strong>Fortune's Formula</strong> — William Poundstone. The wild history of Kelly criterion. Reads like a thriller.</li>
+<li><strong>Thinking in Bets</strong> — Annie Duke. Poker player turned decision consultant. Very practical.</li>
+</ol>
+<hr />
+<h2 id="one-more-thing">One More Thing</h2>
+<p>The fact that you read to the end of an article about expected value and Bayesian updating puts you in a tiny minority. Most people scroll past anything with a formula. You didn't.</p>
+<p><strong>That is your edge.</strong> Not information — everyone has access to the same books and formulas. The edge is actually caring enough to learn this stuff and apply it.</p>
+<p>Now go make a better decision than you would have made an hour ago.</p>
+<hr />
+<h2 id="quick-reference-cheat-sheet">Quick-Reference Cheat Sheet</h2>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Formula</th>
+<th>When to Use</th>
+<th>Key Question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Expected Value</strong></td>
+<td>EV = sum(probability x payoff)</td>
+<td>Any decision with uncertain outcomes</td>
+<td>"What's the average result if I did this 100 times?"</td>
+</tr>
+<tr>
+<td><strong>Base Rate</strong></td>
+<td>P(A given B) = true positives / all positives</td>
+<td>Evaluating claims, opportunities, predictions</td>
+<td>"How often does this actually work in general?"</td>
+</tr>
+<tr>
+<td><strong>Sunk Cost</strong></td>
+<td>Only compare future options</td>
+<td>Deciding whether to continue or quit</td>
+<td>"If I were starting fresh today, would I choose this?"</td>
+</tr>
+<tr>
+<td><strong>Bayes</strong></td>
+<td>posterior = (likelihood x prior) / evidence</td>
+<td>Updating beliefs with new information</td>
+<td>"How much should this evidence shift my confidence?"</td>
+</tr>
+<tr>
+<td><strong>Survivorship</strong></td>
+<td>Real rate = successes / total attempts</td>
+<td>Evaluating success stories and advice</td>
+<td>"How many people tried this and failed invisibly?"</td>
+</tr>
+<tr>
+<td><strong>Kelly</strong></td>
+<td>f* = (p x b - q) / b</td>
+<td>Sizing bets, investments, commitments</td>
+<td>"How much of my resources should I allocate?"</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="decision-pre-flight-checklist">Decision Pre-Flight Checklist</h2>
+<p>Use this before any major decision (career, financial, relationship, health):</p>
+<ul>
+<li class="task"><input type="checkbox" disabled /> <strong>Calculate EV</strong>: List all outcomes with probabilities and payoffs. What's the expected value of each option?</li>
+<li class="task"><input type="checkbox" disabled /> <strong>Check base rates</strong>: What's the historical success rate for this type of decision? Am I anchoring on a vivid story instead of data?</li>
+<li class="task"><input type="checkbox" disabled /> <strong>Audit sunk costs</strong>: Am I continuing because of past investment, or because the future looks good? Would I start this today from scratch?</li>
+<li class="task"><input type="checkbox" disabled /> <strong>Update with Bayes</strong>: What evidence do I have? Am I weighting it proportionally, or am I either ignoring it or overreacting?</li>
+<li class="task"><input type="checkbox" disabled /> <strong>Look for survivors</strong>: Am I only seeing the winners? What does the full denominator look like — how many people tried this and failed?</li>
+<li class="task"><input type="checkbox" disabled /> <strong>Size with Kelly</strong>: Even if this is a great opportunity, how much should I commit? Am I going full-YOLO or using a sensible fraction?</li>
+<li class="task"><input type="checkbox" disabled /> <strong>Gut check</strong>: Does my gut disagree with the math? If so, <em>why</em>? (Sometimes your gut knows something the model doesn't — but usually it's just loss aversion.)</li>
+</ul>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>Built from <a href="https://github.com/mthewessen/HiddenMathOfDecisions/blob/main/Readme.md" target="_blank" rel="noopener">Readme.md</a> · Charts rendered as SVG · Math via <a href="https://katex.org" target="_blank" rel="noopener">KaTeX</a></p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
