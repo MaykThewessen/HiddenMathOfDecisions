@@ -2,7 +2,7 @@
 
 *Based on [@zodchiii](https://x.com/zodchiii/status/2030267008625873324)*
 
-📖 **Read it on the web:** [mthewessen.github.io/HiddenMathOfDecisions](https://mthewessen.github.io/HiddenMathOfDecisions/) — typography-tuned, KaTeX math, dark mode, mobile-friendly.
+📖 **Read it on the web:** [hiddenmathofdecisions.readthedocs.io](https://hiddenmathofdecisions.readthedocs.io/) — Material theme, MathJax, dark mode, in-page TOC, mobile-friendly.
 
 ---
 
@@ -13,14 +13,18 @@
 | [`decision_math.py`](decision_math.py) | All 6 models as Python functions + Monte Carlo simulations. Run `python decision_math.py --plot` to regenerate every chart. |
 | [`generate_extra_charts.py`](generate_extra_charts.py) | Sunk-cost + full-system flowchart SVGs. |
 | [`decision_math_formulas.xlsx`](decision_math_formulas.xlsx) | Same six formulas in Excel — plug in your own numbers. |
-| [`charts/*.svg`](charts/) | All seven figures as vector SVG (scales cleanly, prints well). |
-| [`build_site.py`](build_site.py) | Renders this Readme into the GitHub Pages site under [`docs/`](docs/). |
+| [`charts/`](https://github.com/MaykThewessen/HiddenMathOfDecisions/tree/main/charts) | All seven figures as vector SVG (scales cleanly, prints well). |
+| [`mkdocs.yml`](mkdocs.yml) + [`docs/`](https://github.com/MaykThewessen/HiddenMathOfDecisions/tree/main/docs) | MkDocs Material site published to Read the Docs. |
 
 ```bash
-# Requirements: Python 3.10+, numpy, matplotlib, markdown
-python decision_math.py --plot          # text demo + regenerate charts
-python generate_extra_charts.py         # remaining 2 charts
-python build_site.py                    # rebuild docs/index.html
+# Regenerate charts (requires numpy, matplotlib)
+python decision_math.py --plot
+python generate_extra_charts.py
+
+# Preview the docs site locally (requires mkdocs-material)
+pip install -r docs/requirements.txt
+mkdocs serve            # http://localhost:8000
+mkdocs build            # output to site/
 ```
 
 ---

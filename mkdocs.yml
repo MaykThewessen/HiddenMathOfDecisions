@@ -1,0 +1,94 @@
+site_name: The Hidden Math of Decisions
+site_description: >-
+  Six mental models — Expected Value, Base Rates, Sunk Cost, Bayes,
+  Survivorship Bias, Kelly Criterion — for thinking clearly under uncertainty.
+site_url: https://hiddenmathofdecisions.readthedocs.io/
+site_author: Mayk Thewessen
+
+repo_name: MaykThewessen/HiddenMathOfDecisions
+repo_url: https://github.com/MaykThewessen/HiddenMathOfDecisions
+edit_uri: edit/main/Readme.md
+
+docs_dir: docs
+
+# Top-level files (decision_math.py, *.xlsx, mkdocs.yml) live outside docs/
+# but are linked from Readme.md. Don't fail the build over those.
+validation:
+  links:
+    not_found: ignore
+    absolute_links: ignore
+    unrecognized_links: ignore
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.top
+    - navigation.tracking
+    - navigation.instant
+    - navigation.instant.progress
+    - content.code.copy
+    - content.action.edit
+    - content.action.view
+    - toc.follow
+    - search.suggest
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds: {case: lower}
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - pymdownx.smartsymbols
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/mathjax-config.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/MaykThewessen/HiddenMathOfDecisions
+  generator: false
+
+copyright: >-
+  Mathematical content based on
+  <a href="https://x.com/zodchiii/status/2030267008625873324" target="_blank" rel="noopener">@zodchiii</a>.
