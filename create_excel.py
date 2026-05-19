@@ -1,4 +1,7 @@
-"""Generate the Decision Math Excel workbook with all 6 formula examples + dashboard."""
+"""Generate the Decision Math Excel workbook with all 6 formula examples + dashboard.
+
+Docs: https://hiddenmathofdecisions.readthedocs.io/en/latest/
+"""
 
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side

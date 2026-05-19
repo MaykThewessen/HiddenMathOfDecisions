@@ -4,6 +4,8 @@ The Hidden Math Behind Every Decision You Make
 Interactive Python implementations of the 6 mental models,
 with optional matplotlib visualizations.
 
+Docs: https://hiddenmathofdecisions.readthedocs.io/en/latest/
+
 Usage:
     python decision_math.py              # text-only demo
     python decision_math.py --plot       # demo + save charts to PNG

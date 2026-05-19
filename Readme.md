@@ -1,6 +1,6 @@
 # The Hidden Math Behind Every Decision You Make — And Why Most People Get It Wrong
 
-*Based on [@zodchiii](https://x.com/zodchiii/status/2030267008625873324)*
+*Based on [@zodchiii](https://x.com/zodchiii/status/2030267008625873324)* · [📖 Full docs](https://hiddenmathofdecisions.readthedocs.io/en/latest/)
 
 📖 **Read it on the web:** [hiddenmathofdecisions.readthedocs.io](https://hiddenmathofdecisions.readthedocs.io/) — Material theme, MathJax, dark mode, in-page TOC, mobile-friendly.
 
