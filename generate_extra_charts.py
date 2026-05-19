@@ -1,4 +1,7 @@
-"""Generate additional charts for the Readme: sunk cost and decision system overview."""
+"""Generate additional charts for the Readme: sunk cost and decision system overview.
+
+Docs: https://hiddenmathofdecisions.readthedocs.io/en/latest/
+"""
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
